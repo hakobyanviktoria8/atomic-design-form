@@ -1,0 +1,14 @@
+.Button{
+    background: rgba(158, 203, 198, 0.2);
+    border-radius: 8px;
+    width: 180px;
+    height: 52px;
+    margin-right: 20px;
+    color: #9ECBC6;
+    border: none;
+}
+.Button.Submit{
+    margin-right: 0;
+    background: #FDCC19;
+    color: #000;
+}

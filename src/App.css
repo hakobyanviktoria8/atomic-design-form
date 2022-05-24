@@ -1,7 +1,13 @@
 .App{
+  box-sizing: border-box;
   width: 460px;
   height: 394px;
   background: #1F1F1F;
+  border: 1px solid #1F1F1F;
   border-radius: 8px;
   margin: 100px auto;
+  padding: 21px 36px 46px;
+}
+.buttons{
+  margin-top: 20px;
 }
