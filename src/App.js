@@ -5,7 +5,7 @@ import Label from './components/molecules/Label/Label';
 
 function App() {
   const [formData, setFormData] = useState({fullName: '', email: ''})
-  const [errors, setErrors]  = useState({fullName: '', email: ''})
+  const [errors, setErrors]  = useState({fullName: '', email: '', response:''})
   const sendDataUrl = 'https://e890494c-90a1-400d-961d-c129ee65fc70.mock.pstmn.io/request'
 
   const handleChangeData = (e) => {
@@ -14,11 +14,16 @@ function App() {
         ...formData,
         [name]: value,
     })
+    setErrors({
+        ...errors,
+        [name]: "",
+        response: ""
+    })
   }
 
   const validate =(name)=>{
     const emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i;
-    const fullNameValidation = /^[a-z]+[a-z\-]*$/i;
+    const fullNameValidation = /^[a-z]+[a-z\-\s]*$/ig;
     // console.log("validate name", name, formData[name])
 
     if(name === "email" && !emailValidation.test(formData[name])){
@@ -60,9 +65,9 @@ function App() {
        })
       }
 
-      if(formData[key] && !errors[key]){
-        // console.log("formData",formData);
-        // console.log("errors",errors)
+      if(formData.email !== '' && formData.fullName !== '' && !validate(formData.email)){
+        console.log("formData",formData);
+        console.log("errors",errors)
 
          fetch(sendDataUrl, { method: 'POST', body: formData })
           .then(res => res.json())
@@ -70,7 +75,7 @@ function App() {
             setErrors(err => {
               return {
                  ...err,
-                 email: json.error.message,
+                 response: json.error.message,
               }
            })
           )
@@ -102,6 +107,8 @@ function App() {
           error={errors.email}
         />      
       </form>
+
+      <p className='response'>{errors?.response}</p>
 
       <div className='buttons'>
         <Button text="Reset" event={handleReset}/>
